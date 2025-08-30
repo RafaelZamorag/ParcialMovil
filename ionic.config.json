@@ -1,0 +1,7 @@
+{
+  "name": "ParcialMovil",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
