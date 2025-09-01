@@ -1,6 +1,6 @@
 
 <ion-content [fullscreen]="true">
-<form [formGroup]="loginForm" (ngSubmit)="loginForm">
+<form [formGroup]="loginForm" (ngSubmit)="onLogin()">
 <ion-card>
   <ion-card-content>
     <ion-row>
@@ -25,12 +25,19 @@
     </ion-row>
      <ion-row>
      <ion-col>
-      <a href="">Register</a>
+      <ion-button
+       routerLink = "/register"
+        color = "primary"
+        expand="block"
+        >
+        Register
+      </ion-button>
      </ion-col>
+
       <ion-col>
         <app-button 
         type="submit"
-        color="danger"
+        color="primary"
         [disabled]="loginForm.invalid"
         value="Login"
         >

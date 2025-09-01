@@ -10,6 +10,7 @@ const components = [InputComponent, ButtonComponent]
 
 @NgModule({
   declarations: [...components],
+  providers: [Storage],
   imports: [
     CommonModule, 
     IonicModule, 

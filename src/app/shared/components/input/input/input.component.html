@@ -1,7 +1,16 @@
+   
+   <div class="input-wrapper border-blue"> 
    <ion-input 
         [type]="type"
         [label]="label"
         [placeholder]="placeholder"
         labelPlacement="floating"
         (keyup)="onType($event)">
+
       </ion-input>
+      
+      </div>
+      @if (hasError) {
+        <ion-text color="danger">The input is required</ion-text>
+      }
+    

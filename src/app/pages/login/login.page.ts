@@ -18,18 +18,19 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {}
 
-  public onLogin(){
+  public onLogin(){ 
     console.log(this.loginForm.value)
+    
   }
 
   private initForm(){
     this.email = new FormControl('', [Validators.required, Validators.email])
-    this.password = new FormControl('', [Validators.required, Validators.minLength (5), Validators.maxLength(8)])
+    this.password = new FormControl('', [Validators.required, Validators.minLength (5)])
     this.loginForm = new FormGroup({
       email:this.email,
       password:this.password,
     })
-
+      
   }
 
 }
