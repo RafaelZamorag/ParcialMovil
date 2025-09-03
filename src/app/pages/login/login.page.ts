@@ -1,36 +1,60 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AppStorage } from 'src/app/shared/services/storage/storage';
+
+interface Iuser {
+  Name: string;
+  LastName: string;
+  Email: string;
+  Password: string;
+}
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
-  standalone: false, 
+  standalone: false,
 })
 export class LoginPage implements OnInit {
-  public email!: FormControl;
-  public password!: FormControl;
-  public loginForm!: FormGroup;
+  public Email = new FormControl('', [Validators.required, Validators.email]);
+  public Password = new FormControl('', [Validators.required]);
 
-  constructor() { 
-    this.initForm();
-  }
+  public loginForm = new FormGroup({
+    Email: this.Email,
+    Password: this.Password,
+  });
 
+  public errorMessage = '';
+
+  constructor(private storage: AppStorage, private router: Router) {}
   ngOnInit() {}
 
-  public onLogin(){ 
-    console.log(this.loginForm.value)
-    
-  }
+  doLogin() {
+    this.errorMessage = '';
+    if (this.loginForm.invalid) return;
 
-  private initForm(){
-    this.email = new FormControl('', [Validators.required, Validators.email])
-    this.password = new FormControl('', [Validators.required, Validators.minLength (5)])
-    this.loginForm = new FormGroup({
-      email:this.email,
-      password:this.password,
-    })
-      
-  }
+    const users = this.storage.get<Iuser[]>('users') || [];
+    const email = (this.Email.value || '').trim().toLowerCase();
+    const pass  = this.Password.value || '';
 
+    const user = users.find(u => (u.Email || '').trim().toLowerCase() === email);
+
+    if (!user) {
+      this.errorMessage = 'El correo no está registrado';
+      return;
+    }
+    if (user.Password !== pass) {
+      this.errorMessage = 'Contraseña incorrecta';
+      return;
+    }
+
+    // (opcional) guarda sesión ligera
+    this.storage.set('currentUser', { Email: user.Email, Name: user.Name });
+
+    // navega solo si todo está correcto
+    this.router.navigate(['/register']); // o a '/home' si ya tienes esa ruta
+  }
 }
+
+

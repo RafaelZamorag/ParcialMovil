@@ -1,6 +1,7 @@
-import { Component, Input, input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
+type InputType = 'text' | 'email' | 'password';
 
 @Component({
   selector: 'app-input',
@@ -8,28 +9,37 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./input.component.scss'],
   standalone: false,
 })
-export class InputComponent  implements OnInit {
- @Input() type: string = '';
- @Input() label: String = '';
- @Input() placeholder: String = '';
- @Input() control: FormControl = new FormControl();
+export class InputComponent implements OnInit {
+  private _type: InputType = 'text';
 
+  @Input()
+  set type(val: string) {
+    const v = (val || 'text').toLowerCase();
+    this._type = (v === 'text' || v === 'email' || v === 'password') ? v as InputType : 'text';
+  }
+  get type(): InputType { return this._type; }
 
- public hasError = false;
+  @Input() label: string = '';
+  @Input() placeholder: string = '';
+  @Input() control: FormControl = new FormControl<string>('');
+  @Input() togglePassword: boolean = false;
 
-  constructor() {}
+  hasError = false;
+  showPassword = false;
 
   ngOnInit() {}
 
-
-public onType(event: any){
-  if(this.control.errors){
-    this.hasError = true;
-  }else {
-    this.hasError = false;
+  get computedType(): 'text' | 'email' | 'password' {
+    if (this.type === 'password' && this.togglePassword) {
+      return this.showPassword ? 'text' : 'password';
+    }
+    return this.type;
   }
-  this.control.setValue(event.target.value);
-  //console.log(this.control.errors)
-}
 
+
+  toggleVisibility() {
+    if (this.type === 'password' && this.togglePassword) {
+      this.showPassword = !this.showPassword;
+    }
+  }
 }

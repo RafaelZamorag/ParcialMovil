@@ -1,0 +1,31 @@
+.error {
+  color: red;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.error {
+  color: var(--ion-color-danger);
+  font-weight: 600;
+  margin-top: 6px;
+  font-size: 0.9rem;
+}
+
+.eye-icon {
+  font-size: 22px;
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  cursor: pointer;
+  color: var(--ion-color-medium);
+}
+.muted-link {
+  display: inline-block;
+  margin: 8px 4px 12px;
+  color: var(--ion-color-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+

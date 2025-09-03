@@ -1,16 +1,25 @@
-   
-   <div class="input-wrapper border-blue"> 
-   <ion-input 
-        [type]="type"
-        [label]="label"
-        [placeholder]="placeholder"
-        labelPlacement="floating"
-        (keyup)="onType($event)">
+<ion-item lines="none" class="app-input">
+  <ion-label position="stacked">{{ label }}:</ion-label>
 
-      </ion-input>
-      
-      </div>
-      @if (hasError) {
-        <ion-text color="danger">The input is required</ion-text>
-      }
-    
+  <ion-input
+    [type]="computedType"
+    [formControl]="control"
+    [placeholder]="placeholder">
+  </ion-input>
+
+  <ion-button
+    *ngIf="type === 'password' && togglePassword"
+    slot="end"
+    fill="clear"
+    size="small"
+    (click)="toggleVisibility()"
+    aria-label="Mostrar u ocultar contraseña">
+    <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+  </ion-button>
+</ion-item>
+<ion-note
+  *ngIf="control.invalid && (control.dirty || control.touched)"
+  color="danger"
+  class="err-note">
+  The input is required
+</ion-note>

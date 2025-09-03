@@ -1,50 +1,45 @@
-
 <ion-content [fullscreen]="true">
-<form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-<ion-card>
-  <ion-card-content>
-    <ion-row>
-      <ion-col>
-        <app-input 
-        type="Email"
-        label="Email"
-        placeholder="zamora@gmail.com"
-        [control]="email">
-      </app-input>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <app-input 
-        type="Password"
-        label="Password"
-        placeholder="#######"
-        [control]="password">
-        </app-input>
-      </ion-col>
-    </ion-row>
-     <ion-row>
-     <ion-col>
-      <ion-button
-       routerLink = "/register"
-        color = "primary"
-        expand="block"
-        >
-        Register
-      </ion-button>
-     </ion-col>
+  <form [formGroup]="loginForm" (ngSubmit)="doLogin()">
+    <ion-card>
+      <ion-card-content>
 
-      <ion-col>
-        <app-button 
-        type="submit"
-        color="primary"
-        [disabled]="loginForm.invalid"
-        value="Login"
-        >
-      </app-button>
-      </ion-col>
-    </ion-row>
-  </ion-card-content>
-</ion-card>
-</form>
+        <ion-row>
+          <ion-col>
+            <app-input
+              type="email"
+              label="Email"
+              placeholder="Rafael@gmail.com"
+              [control]="Email">
+            </app-input>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <app-input
+              type="password"
+              label="Password"
+              placeholder="********"
+              [control]="Password"
+              [togglePassword]="true">
+            </app-input>
+          </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="errorMessage">
+          <ion-col><div class="error">{{ errorMessage }}</div></ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-button routerLink="/register" expand="block" color="medium">Register</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button type="submit" expand="block" color="primary">Login</ion-button>
+          </ion-col>
+        </ion-row>
+
+      </ion-card-content>
+    </ion-card>
+  </form>
 </ion-content>

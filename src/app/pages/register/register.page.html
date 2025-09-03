@@ -1,90 +1,86 @@
 <ion-content [fullscreen]="true">
-<form [formGroup]="registerForm" (ngSubmit)="doRegister()">
-<ion-card>
-  <ion-card-content>
-    <ion-row>
-      <ion-col size="6">
-        <app-input 
-        type="text"
-        label="Name"
-        placeholder="Rafael"
-        [control]="Name"
-        >
-      </app-input>
-      </ion-col>
-      <ion-col size="6">
-        <app-input 
-        type="text"
-        label="Last Name"
-        placeholder="Enrique"
-        [control]="LastName"
-        >
-      </app-input>
-      </ion-col>
-    </ion-row>
-  
-    
+  <form [formGroup]="registerForm" (ngSubmit)="doRegister()">
+    <ion-card>
+      <ion-card-content>
+        <ion-row>
+          <ion-col size="6">
+            <app-input 
+              type="text"
+              label="Name"
+              placeholder="Rafael"
+              [control]="Name">
+            </app-input>
+          </ion-col>
+          <ion-col size="6">
+            <app-input 
+              type="text"
+              label="Last Name"
+              placeholder="Enrique"
+              [control]="LastName">
+            </app-input>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <app-input 
+              type="email"
+              label="Email"
+              placeholder="zamora@gmail.com"
+              [control]="Email">
+            </app-input>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="errorMessage">
+          <ion-col>
+            <div class="error">{{ errorMessage }}</div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <app-input
+              type="password"
+              label="Password"
+              placeholder="*******"
+              [control]="Password"
+              [togglePassword]="true">
+            </app-input>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <app-input
+              type="password"
+              label="Confirm password"
+              placeholder="*******"
+              [control]="ConfirmPassword"
+              [togglePassword]="true">
+            </app-input>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="registerForm.errors?.['passwordMismatch'] && (ConfirmPassword.touched || ConfirmPassword.dirty)">
+          <ion-col>
+            <div class="error">Las contraseñas no coinciden</div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <a class="muted-link" routerLink="/login">Already registered?</a>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button
+              type="submit"
+              expand="block"
+              shape="round"
+              [disabled]="registerForm.invalid">
+              <ion-icon slot="start" name="person-add-outline"></ion-icon>
+              Sign Up
+            </ion-button>
+          </ion-col>
+        </ion-row>
 
-
-
-    <ion-row>
-      <ion-col>
-        <app-input 
-        type="Email"
-        label="Email"
-        placeholder="zamora@gmail.com"
-        [control]="Email"
-        >
-      </app-input>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <app-input 
-        type="Password"
-        label="Password"
-        placeholder="#######"
-        [control]="Password"
-      >
-        </app-input>
-      </ion-col>
-      <ion-col>
-        <app-input 
-        type="Password"
-        label="Comfirm password"
-        placeholder="#######"
-        [control]="ConfirmPassword"
-      >
-        </app-input>
-      </ion-col>
-    </ion-row>
-     <ion-row>
-      <ion-col>
-        <app-button 
-        type="submit"
-        expand="block"
-        color="primary"
-        value="Register"
-        [disabled]="registerForm.invalid"
-        >
-      </app-button>
-      </ion-col>
-
-       <ion-col>
-        <app-button 
-        type="submit"
-        expand="block"
-        color="primary"
-        routerLink = "/login"
-        value="Back"
-        >
-      </app-button>
-      </ion-col>
-    </ion-row>
-  </ion-card-content>
-</ion-card>
-</form>
+      </ion-card-content>
+    </ion-card>
+  </form>
 </ion-content>
-
-
-
